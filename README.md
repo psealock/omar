@@ -2,9 +2,12 @@
 
 A web scraping tool for ecommerce solutions. I wouldn't use this if I were you.
 
+![alt text][omar]
+[omar]: http://i866.photobucket.com/albums/ab226/muscleart/PopArtPro/Omar.jpg "...Indeed"
+
 ### Requirements
-* CasperJS
-* Node and npm 
+* [CasperJS](http://casperjs.org/)
+* [Node and npm](https://nodejs.org/)
 
 ### Usage
 create a strategy similar to _/strategies/wdmusic.js_
