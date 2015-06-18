@@ -1,75 +1,48 @@
-var fs = require('fs'),
-    strategy = require('./strategies/wdmusic'),
-    casper = require('casper').create({
-        verbose: false,
-        logLevel: 'debug'
-    });
+var fs = require('fs');
 
-var output = 'dist/output.csv';
-
-function writeFile (filename, content) {
-    fs.write(filename, content, 'a');
-}
-
-function getElements (query, attribute) {
-    var elements = document.querySelectorAll(query),
-        res = [];
-
-    if(attribute) {
-        for (var i = 0; i < elements.length; i++) {
-            res[i] = elements[i].getAttribute(attribute);
-        }
-    }else {
-        res = elements;
-    }
-
-    return res
-}
-
-function getInnerHtml (query) {
-
-}
-
-var links = [];
-
-casper.start(strategy.url, function() {
-    this.echo(this.getTitle());
-    writeFile(output, strategy.csv.reduce(function (a, b, index) {
-        if(index === 0) {
-            return a + b.header;
-        }
-        return a + ', ' + b.header;
-    }, ''));
-    writeFile(output, '\n');
-});
-
-// casper.then(function () {
-//     links = this.evaluate(getElements, strategy.links, 'href');
-//     links.forEach(function (link) {
-//         casper.then(function () {
-//             this.thenOpen(link, function () {
-//                 this.echo(this.getTitle());
-//             });
-//         });
-//     }.bind(this));
-// });
+var Omar = (function () {
+	/*
+	Private functions
+	*/
 
 
 
-// casper.then(function() {
-// 	this.log('getting links...', 'info');
 
-//     var images = this.evaluate(getElements, imageQuery, 'src');
-//     images.forEach(function (l) {
-//         writeFile(l);
-//         writeFile('\n');
-//     });
+	/*
+	Public functions
+	*/
+	return {
+		writeFile: function (filename, content) {
+		    fs.write(filename, content, 'a');
+		},
+		getElements: function (query, attribute) {
+		    var elements = document.querySelectorAll(query),
+		        res = [];
 
-// });
+		    if(attribute) {
+		        for (var i = 0; i < elements.length; i++) {
+		            res[i] = elements[i].getAttribute(attribute);
+		        }
+		    }else {
+		        res = elements;
+		    }
 
-casper.run(function() {
-    this.log('all done', 'info');
-    this.exit();
-});
+		    return res
+		},
+		createCsvHeaders: function (filename, csvArray) {
+		    this.writeFile(filename, csvArray.reduce(function (a, b, index) {
+		        if(index === 0) {
+		            return a + b.header;
+		        }
+		        return a + ', ' + b.header;
+		    }, ''));
+		    this.writeFile(filename, '\n');
+		},
+		getInnerHtml: function (query) {
 
+		}
+	}
 
+})();
+
+module.exports = Omar;
