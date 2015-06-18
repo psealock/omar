@@ -48,6 +48,25 @@ var Omar = (function () {
 		        return a + ', ' + b;
 		    }, ''));
 		    this.writeFile(filename, '\n');
+		},
+
+		/*
+		Grab all the things on the page
+		*/
+		evaluateProduct: function (csvItem) {
+	        var el = document.querySelector(csvItem.query),
+	            str = el ? el.innerHTML : '';
+
+	        if(csvItem.regex) {
+	            rx = new RegExp(csvItem.regex, 'g');
+	            str = str.replace(rx, '');
+	        }
+
+	        if(csvItem.attr) {
+	            str = el ? el.getAttribute(csvItem.attr) : '';
+	        }
+
+	        return str;
 		}
 	}
 

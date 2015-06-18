@@ -24,23 +24,9 @@ casper.then(function () {
             this.thenOpen(link, function () {
                 this.echo(this.getTitle());
                 var csvArray = [];
-                strategy.csv.forEach(function (csv) {
+                strategy.csv.forEach(function (csvItem) {
                     casper.then(function () {
-                        csvArray.push(this.evaluate(function(csv){
-                            var el = document.querySelector(csv.query),
-                                str = el ? el.innerHTML : '';
-
-                            if(csv.regex) {
-                                rx = new RegExp(csv.regex, 'g');
-                                str = str.replace(rx, '');
-                            }
-
-                            if(csv.attr) {
-                                str = el ? el.getAttribute(csv.attr) : '';
-                            }
-
-                            return str;
-                        }, csv));
+                        csvArray.push(this.evaluate(Omar.evaluateProduct, csvItem));
                     });
                 });
                 casper.then(function () {
