@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/psealock/omar/issues"
   },
-  "homepage": "https://github.com/psealock/omar"
+  "homepage": "https://github.com/psealock/omar",
+  "dependencies": {
+    "casperjs": "^1.1.0-beta3",
+    "phantomjs": "^1.9.17"
+  }
 }

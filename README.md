@@ -6,10 +6,15 @@ A web scraping tool for ecommerce solutions. I wouldn't use this if I were you.
 [omar]: http://i866.photobucket.com/albums/ab226/muscleart/PopArtPro/Omar.jpg "...Indeed"
 
 ### Requirements
+* [PhantomJS](http://phantomjs.org/)
 * [CasperJS](http://casperjs.org/)
 * [Node and npm](https://nodejs.org/)
 
 ### Usage
+```
+$ git clone git@github.com:psealock/omar.git
+$ cd omar && npm install
+```
 create a strategy similar to _/strategies/wdmusic.js_
 
 ```
