@@ -34,7 +34,7 @@ module.exports = {
 Indeed
 
 ```
-$ npm run omar
+$ npm run omar -- wdmusic
 ```
 
 
