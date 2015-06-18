@@ -7,6 +7,6 @@ module.exports = {
 		{header: 'Brand', query: '.brand'},
 		{header: 'Description', query: '.mainContent table table tr:nth-child(2) td'},
 		{header: 'price', query: '.miNowOnly', regex: 'Price: \\$'},
-		// {header: 'Image', query: ''}
+		{header: 'Image', query: '#bigImage img', attr: 'src'}
 	]
 }

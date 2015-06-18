@@ -24,19 +24,23 @@ casper.then(function () {
             this.thenOpen(link, function () {
                 this.echo(this.getTitle());
                 var csvArray = [];
-                strategy.csv.forEach(function (csv, regex) {
+                strategy.csv.forEach(function (csv) {
                     casper.then(function () {
-                        csvArray.push(this.evaluate(function(query, regex){
-                            var el = document.querySelector(query),
+                        csvArray.push(this.evaluate(function(csv){
+                            var el = document.querySelector(csv.query),
                                 str = el ? el.innerHTML : '';
 
-                            if(regex) {
-                                rx = new RegExp(regex, 'g');
+                            if(csv.regex) {
+                                rx = new RegExp(csv.regex, 'g');
                                 str = str.replace(rx, '');
                             }
-                            
+
+                            if(csv.attr) {
+                                str = el ? el.getAttribute(csv.attr) : '';
+                            }
+
                             return str;
-                        }, csv.query, csv.regex));
+                        }, csv));
                     });
                 });
                 casper.then(function () {
