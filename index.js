@@ -11,7 +11,10 @@ var links = [];
 
 casper.start(strategy.url, function() {
     this.echo(this.getTitle());
-    Omar.createCsvHeaders(output, strategy.csv);
+    Omar.createCsvLine(output, strategy.csv.map(function(csv) {
+        return csv.header;
+    }));
+    Omar.createCsvLine(output, []);
 });
 
 casper.then(function () {
@@ -20,22 +23,29 @@ casper.then(function () {
         casper.then(function () {
             this.thenOpen(link, function () {
                 this.echo(this.getTitle());
+                var csvArray = [];
+                strategy.csv.forEach(function (csv, regex) {
+                    casper.then(function () {
+                        csvArray.push(this.evaluate(function(query, regex){
+                            var el = document.querySelector(query),
+                                str = el ? el.innerHTML : '';
+
+                            if(regex) {
+                                rx = new RegExp(regex, 'g');
+                                str = str.replace(rx, '');
+                            }
+                            
+                            return str;
+                        }, csv.query, csv.regex));
+                    });
+                });
+                casper.then(function () {
+                    Omar.createCsvLine(output, csvArray);
+                });
             });
         });
     }.bind(this));
 });
-
-
-// casper.then(function() {
-// 	this.log('getting links...', 'info');
-
-//     var images = this.evaluate(getElements, imageQuery, 'src');
-//     images.forEach(function (l) {
-//         writeFile(l);
-//         writeFile('\n');
-//     });
-
-// });
 
 casper.run(function() {
     this.log('all done', 'info');

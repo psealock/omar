@@ -12,9 +12,16 @@ var Omar = (function () {
 	Public functions
 	*/
 	return {
+		/*
+		Helper function
+		*/
 		writeFile: function (filename, content) {
 		    fs.write(filename, content, 'a');
 		},
+
+		/*
+		Gather elements or a specific attribute
+		*/
 		getElements: function (query, attribute) {
 		    var elements = document.querySelectorAll(query),
 		        res = [];
@@ -29,17 +36,18 @@ var Omar = (function () {
 
 		    return res
 		},
-		createCsvHeaders: function (filename, csvArray) {
+
+		/*
+		Start the csv on the right foot
+		*/
+		createCsvLine: function (filename, csvArray) {
 		    this.writeFile(filename, csvArray.reduce(function (a, b, index) {
 		        if(index === 0) {
-		            return a + b.header;
+		            return a + b;
 		        }
-		        return a + ', ' + b.header;
+		        return a + ', ' + b;
 		    }, ''));
 		    this.writeFile(filename, '\n');
-		},
-		getInnerHtml: function (query) {
-
 		}
 	}
 
