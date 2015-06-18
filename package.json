@@ -1,0 +1,20 @@
+{
+  "name": "OmarJs",
+  "version": "0.0.1",
+  "description": "A web scraper to gather contents for ecommerce businesses",
+  "main": "omar.js",
+  "scripts": {
+    "refresh": "rm -rf dist && mkdir dist && touch dist/output.csv",
+    "omar": "npm run refresh && casperjs omar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psealock/omar.git"
+  },
+  "author": "Paul Sealock <psealock@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psealock/omar/issues"
+  },
+  "homepage": "https://github.com/psealock/omar"
+}
