@@ -1,12 +1,19 @@
 var Omar = require('./Omar'),
-  strategy = require('./strategies/wdmusic'),
+  output = 'dist/output.csv',
   casper = require('casper').create({
-      verbose: false,
-      logLevel: 'debug'
-  });
+    verbose: false,
+    logLevel: 'debug'
+  }),
+  strategyName = casper.cli.args[0];
 
-var output = 'dist/output.csv';
+if(!strategyName) {
+  casper.echo('*******');
+  casper.echo('Please supply a strategy argument: " -- <strategy name>"');
+  casper.echo('*******');
+  casper.exit();
+}
 
+var strategy = require('./strategies/' + strategyName);
 var links = [];
 
 casper.start(strategy.url, function() {
