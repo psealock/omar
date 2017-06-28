@@ -4,7 +4,8 @@ var Omar = require('./Omar'),
     verbose: false,
     logLevel: 'debug'
   }),
-  strategyName = casper.cli.args[0];
+  strategyName = casper.cli.args[0],
+  url = casper.cli.args[1];
 
 if(!strategyName) {
   casper.echo('*******');
@@ -13,10 +14,17 @@ if(!strategyName) {
   casper.exit();
 }
 
+if(!url) {
+  casper.echo('*******');
+  casper.echo('Please supply a url: " -- <strategy name> <url>"');
+  casper.echo('*******');
+  casper.exit();
+}
+
 var strategy = require('./strategies/' + strategyName);
 var links = [];
 
-casper.start(strategy.url, function() {
+casper.start(url, function() {
   this.echo(this.getTitle());
   Omar.createCsvLine(output, strategy.csv.map(function(csv) {
     return csv.header;

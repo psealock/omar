@@ -56,6 +56,9 @@ var Omar = (function () {
     evaluateProduct: function (csvItem) {
       var el = document.querySelector(csvItem.query),
         str = el ? el.innerHTML : '';
+        if ( typeof str === 'string' ) {
+          str = str.trim();
+        }
 
       if(csvItem.regex) {
         rx = new RegExp(csvItem.regex, 'g');
